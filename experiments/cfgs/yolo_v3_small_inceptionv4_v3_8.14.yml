@@ -1,0 +1,59 @@
+MODEL:
+  SSDS: yolo_v3
+  NETS: mobilenet_v2_small_inception_v4_v3
+#  IMAGE_SIZE: [448, 448]
+  IMAGE_SIZE: [320, 320]
+  NUM_CLASSES: 2
+  FEATURE_LAYER: [[['B','B','B'], [5,'B','B','B'], [3,'B','B','B']],
+                  [[64,64,64], [32,48,48,48], [24,32,32,32]]]
+#  SIZES: [[480, 480], [480, 480], [480, 480]]
+  SIZES: [[320, 320], [320, 320], [320, 320]]
+  ASPECT_RATIOS: [[[0.502528526971,0.502528526971],[0.381105939716,0.381105939716],[0.295545937841,0.295545937841]],
+                  [[0.232844975007,0.232844975007],[0.187262595115,0.187262595115],[0.130098972963,0.130098972963]],
+                  [[0.154330373081,0.154330373081],[0.108865457531,0.108865457531],[0.0887082310742,0.0887082310742]]]
+
+TRAIN:
+  MAX_EPOCHS: 500
+  CHECKPOINTS_EPOCHS: 1
+  BATCH_SIZE: 64
+  TRAINABLE_SCOPE: 'base,extras,loc,conf'
+  RESUME_SCOPE: 'base,extras,loc,conf'
+  OPTIMIZER:
+    OPTIMIZER: sgd
+    LEARNING_RATE: 0.001
+    MOMENTUM: 0.9
+    WEIGHT_DECAY: 0.0001
+  LR_SCHEDULER:
+    SCHEDULER: SGDR
+    WARM_UP_EPOCHS: 20
+TEST:
+  BATCH_SIZE: 64
+  TEST_SCOPE: [90, 100]
+
+MATCHER:
+  MATCHED_THRESHOLD: 0.5
+  UNMATCHED_THRESHOLD: 0.5
+  NEGPOS_RATIO: 3
+
+POST_PROCESS:
+  SCORE_THRESHOLD: 0.01
+  IOU_THRESHOLD: 0.6
+  MAX_DETECTIONS: 100
+
+DATASET:
+  DATASET: 'voc'
+#  DATASET_DIR: '/data1/fitzliu/widerface-all/wider-face'
+#  DATASET_DIR: 'C:/data/all_hand_w_keep_0.6_except_min'
+  DATASET_DIR: '/data1/fitzliu/data/all_hand_w_keep_0.6_except_min'
+#  TRAIN_SETS: [['2012','trainval']]
+#  TRAIN_SETS: [['201806231','trainval']]
+  TRAIN_SETS: [['20180703','trainval'],['20180705-2','trainval'],['20180705','trainval'],['20180713-1','trainval'],['20180713-2','trainval'],['20180713-3','trainval'],['20180723','trainval'],['20180807-1','trainval'],['20180807-2','trainval']]
+  TEST_SETS:  [['20180703','test'],['20180705-2','test'],['20180705','test'],['20180713-1','test'],['20180713-2','test'],['20180713-3','test'],['20180723','test'],['20180807-1','test'],['20180807-2','test']]
+
+
+EXP_DIR: './experiments/models/yolo_v3_small_inceptionv4_v3_8.14'
+LOG_DIR: './experiments/models/yolo_v3_small_inceptionv4_v3_8.14'
+#RESUME_CHECKPOINT: './experiments/models/yolo_v3_mobilenetv2_hand1_0_arg0_7.18/yolo_v3_mobilenet_v2_voc_epoch_79.pth'
+RESUME_CHECKPOINT: './experiments/models/yolo_v3_mobilenet_v2_small_inception_v4_v3_voc_epoch_500.pth'
+#RESUME_CHECKPOINT: './experiments/models/yolo_v3_mobilenet_v2_voc_epoch_7.pth'
+PHASE: ['train', 'eval']

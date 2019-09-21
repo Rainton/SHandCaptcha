@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/GestureCaptcha.iml" filepath="$PROJECT_DIR$/.idea/GestureCaptcha.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SHandCaptcha.iml" filepath="$PROJECT_DIR$/.idea/SHandCaptcha.iml" />
+    </modules>
+  </component>
+</project>
